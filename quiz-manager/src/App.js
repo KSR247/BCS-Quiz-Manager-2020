@@ -5,6 +5,7 @@ import NavBar from "./Components/NavBar";
 import Home from "./Components/Home";
 import SignIn from "./Components/SignIn";
 import About from "./Components/About";
+import NotFound from "./Components/NotFound";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/SignIn" component={SignIn} />
             <Route path="/About" component={About} />
+            <Route path="*" component={NotFound} />
           </Switch>
         </main>
       </div>
