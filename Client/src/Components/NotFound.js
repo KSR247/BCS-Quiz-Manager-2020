@@ -39,7 +39,10 @@ export default function NotFound() {
           </g>
         </svg>
       </h1>
-      <h1>Sorry the page you're looking for doesn't exist</h1>
+      <h1>
+        Sorry the page you're looking for doesn't exist, Please contact an admin
+        for assistance
+      </h1>
       <button className="btn notFoundButton">
         <Link to="/" className="linkNotFound">
           Return to home
