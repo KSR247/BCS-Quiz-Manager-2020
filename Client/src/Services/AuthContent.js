@@ -21,7 +21,10 @@ export default ({ children }) => {
   return (
     <div>
       {!isLoaded ? (
-        <h1>Loading</h1>
+        <h1>
+          Loading: If this meesage is still loading after a few mins, then
+          please check if the sever running. Thanks
+        </h1>
       ) : (
         <AuthContext.Provider
           value={{
