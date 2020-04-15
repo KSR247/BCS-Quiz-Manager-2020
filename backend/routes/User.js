@@ -94,7 +94,7 @@ userRouter.get(
   }
 );
 
-//check if user is already authenicated if page is closed.
+//check if user is already authenticated if page is closed.
 userRouter.get(
   "/authenticated",
   passport.authenticate("jwt", { session: false }),

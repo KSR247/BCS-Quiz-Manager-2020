@@ -1,5 +1,6 @@
 import React, { useContext, Fragment } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Navbar, Nav, Button } from "react-bootstrap";
 import { AuthContext } from "../Services/AuthContent";
 import AuthService from "../Services/AuthService";
 
@@ -10,96 +11,72 @@ export default function NavBar(props) {
 
   const onClickLogout = () => {
     AuthService.logout().then((data) => {
-      if (data.success) {
+      if (data.session) {
         setUser(data.user);
         setIsAuthenticated(false);
       }
     });
   };
 
-  const autenticatedNavBar = () => {
-    return (
-      <Fragment>
-        <li className="nav-item">
-          <NavLink
-            to="/Quiz"
-            activeStyle={{
-              fontWeight: "bold",
-              backgroundColor: "rgb(66, 106, 250)",
-            }}
-            className="nav-link"
-          >
-            <span className="link-text">Quiz</span>
-          </NavLink>
-        </li>
-        {user.role === "admin" ? (
-          <li className="nav-item">
-            <NavLink
-              to="/Admin"
-              activeStyle={{
-                fontWeight: "bold",
-                backgroundColor: "rgb(66, 106, 250)",
-              }}
-              className="nav-link"
-            >
-              <span className="link-text">Admin</span>
-            </NavLink>
-          </li>
-        ) : null}
-        <li className="nav-item" id="themeButton">
-          <Link to="/" className="nav-link">
-            <button className="button" type="button" onClick={onClickLogout}>
-              <span className="link-text">Logout</span>{" "}
-            </button>
-          </Link>
-        </li>
-      </Fragment>
-    );
-  };
   const unAutenticatedNavBar = () => {
     return (
       <Fragment>
-        <li className="nav-item" id="themeButton">
+        <NavLink to="/" className="mr-5">
+          <Button onClick={onClickLogout}>SIGN IN</Button>
+        </NavLink>
+      </Fragment>
+    );
+  };
+  const autenticatedNavBar = () => {
+    return (
+      <Fragment>
+        <NavLink
+          to="/Quiz"
+          className="mr-5"
+          activeStyle={{
+            fontWeight: "bold",
+            backgroundColor: "rgb(66, 106, 250)",
+          }}
+        >
+          <span>Quiz</span>
+        </NavLink>
+        {user.role === "admin" ? (
           <NavLink
-            to="/"
+            to="/Admin"
+            className="mr-5"
             activeStyle={{
               fontWeight: "bold",
               backgroundColor: "rgb(66, 106, 250)",
             }}
-            className="nav-link"
           >
-            <button className="button" type="button">
-              <span className="link-text">Sign In</span>{" "}
-            </button>
+            <span>Admin</span>
           </NavLink>
-        </li>
+        ) : null}
+        <NavLink to="/SignIn" className="mr-5">
+          <Button onClick={onClickLogout}>LOGOUT</Button>
+        </NavLink>
+        <NavLink to="" className="mr-5">
+          <span>Hello {user.username}</span>
+        </NavLink>
       </Fragment>
     );
   };
   return (
-    <div>
-      <nav className="navbar">
-        <ul className="navbar-nav">
-          <li className="logo">
-            <NavLink to="/" className="nav-link">
-              <span className="link-text logo-text">Quiz Manager</span>
+    <Fragment>
+      <Navbar bg="dark" variant="dark" className="justify-content-center">
+        <Nav className="justify">
+          <Navbar.Brand>
+            <NavLink to="/About" className="mr-5">
+              <span>Quiz Manager</span>
             </NavLink>
-          </li>
+          </Navbar.Brand>
           {!isAuthenticated ? unAutenticatedNavBar() : autenticatedNavBar()}
-          <li className="nav-item">
-            <NavLink
-              to="/About"
-              activeStyle={{
-                fontWeight: "bold",
-                backgroundColor: "rgb(66, 106, 250)",
-              }}
-              className="nav-link"
-            >
-              <span className="link-text">About</span>
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
-    </div>
+          <NavLink to="/About" className="mr-5">
+            <span>About</span>
+          </NavLink>
+        </Nav>
+      </Navbar>
+      <br />
+    </Fragment>
   );
 }

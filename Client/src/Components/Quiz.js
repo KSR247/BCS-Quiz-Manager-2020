@@ -1,22 +1,21 @@
 import React, { useState, useContext, useEffect, Fragment } from "react";
+import { Row, Col, ListGroup, Button, Accordion, Card } from "react-bootstrap";
 import QuizService from "../Services/QuizService";
 
 export default function Quiz(props) {
-  const [id, setId] = useState("");
+  const [id, setId] = useState("5e93975ba2a74b2950e3eafa");
   const [answer, setAnswer] = useState(false);
 
   const deleteQuizHandler = (event) => {
-    const { id } = event.target.value;
+    // setId(event.currentTarget.dataset.id);
     QuizService.deleteQuiz(id).then((data) => {
       console.log(id);
     });
   };
 
-  const showAnswer = (event) => {
-    event.preventDefault();
-    setAnswer(true);
-    console.log(answer);
-  };
+  // useEffect(() => {
+  //   console.log("id", id);
+  // }, [id]);
 
   const correctAnswer = () => {
     return (
@@ -29,25 +28,52 @@ export default function Quiz(props) {
   };
 
   return (
-    <div className="quizItem">
-      <li className="quizList">{props.quiz.questionTitle}</li>
-      {props.user.role === "admin" || props.user.role === "editor" ? (
-        <Fragment>
-          <button className="buttonQuiz" onClick={showAnswer}>
-            Show answer
-          </button>
-          {!answer ? null : correctAnswer()}
-
-          <button className="buttonQuiz">Edit</button>
-          <button
-            className="buttonQuiz"
-            value={props.quiz._id}
-            onClick={deleteQuizHandler}
-          >
-            Delete
-          </button>
-        </Fragment>
-      ) : null}
-    </div>
+    <Fragment>
+      <Row>
+        <Col>
+          <ListGroup>
+            <ListGroup.Item action variant="secondary">
+              {props.quiz.questionTitle}
+            </ListGroup.Item>
+            <br />
+          </ListGroup>
+        </Col>
+        {props.user.role === "admin" ? (
+          <Fragment>
+            <Col className="col-1">
+              <Button>Edit</Button>
+            </Col>
+            <Col className="col-2">
+              <Button
+                className="btn-danger"
+                onBlur={(e) => setId(e.target.value)}
+                id={props.quiz._id}
+                name={props.quiz._id}
+                value={props.quiz._id}
+                onClick={deleteQuizHandler}
+              >
+                Delete
+              </Button>
+            </Col>
+          </Fragment>
+        ) : null}
+        {props.user.role === "admin" || props.user.role === "editor" ? (
+          <Col className="col-2">
+            <Accordion>
+              <Card>
+                <Card.Header>
+                  <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                    Show Answers
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>{props.quiz.correctOption}</Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+          </Col>
+        ) : null}
+      </Row>
+    </Fragment>
   );
 }

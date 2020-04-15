@@ -19,7 +19,6 @@ const UserSchema = new mongoose.Schema({
     enum: ["user", "editor", "admin"],
     required: true,
   },
-  // quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Quiz" }],
 });
 
 UserSchema.pre("save", function (next) {

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { AuthContext } from "../Services/AuthContent";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import AuthService from "../Services/AuthService";
 import Message from "./Message";
 
@@ -9,7 +9,7 @@ export default function Admin(props) {
     password: "",
     role: "",
   });
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [message, setMessage] = useState(null);
   let timer = useRef(null);
 
@@ -27,6 +27,8 @@ export default function Admin(props) {
   const clearForm = () => {
     setUser({ username: "", password: "", role: "" });
   };
+
+  //TODO: feact all users, so they can be displayed on the right side.
 
   // const getUsers = (event) => {
   //   event.preventDefault();
@@ -48,40 +50,69 @@ export default function Admin(props) {
   };
 
   return (
-    <div className="container" id="container">
-      <div className="form-container sign-in-container">
-        <form onSubmit={onSubmit}>
+    <Container>
+      <Row>
+        <Col className="w-50 primary-success">
+          <Form onSubmit={onSubmit}>
+            <Form.Group as={Row}>
+              <Form.Label column sm={2}>
+                Username
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  onChange={onChange}
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+              <Form.Label column sm={2}>
+                Password
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={onChange}
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group controlId="role">
+              <Form.Label>Correct Answer</Form.Label>
+              <Form.Control as="select" name="role" onChange={onChange}>
+                <option value="user">Basic User</option>
+                <option value="editor">Editor</option>
+                <option value="admin">Admin</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group as={Row}>
+              <Col sm={{ span: 10, offset: 2 }}>
+                <Button type="submit">Register new user</Button>
+              </Col>
+            </Form.Group>
+            {message ? <Message message={message} /> : null}
+          </Form>
+        </Col>
+        <Col className="w-50">
           <h1>Register a new user</h1>
-          <input
-            type="text"
-            name="username"
-            onChange={onChange}
-            placeholder="Enter Username"
-          />
-          <input
-            type="text"
-            name="password"
-            onChange={onChange}
-            placeholder="Password"
-          />
-          <input
-            type="text"
-            name="role"
-            onChange={onChange}
-            placeholder="user/ editor /admin"
-          />
-          <br />
-          <button type="submit">Register a user</button>
-        </form>
-      </div>
-      <div className="overlay-container">
-        <div className="overlay">
-          <div className="overlay-panel overlay-left">
-            <h1>Welcome Back</h1>
-            <p>To Start a quiz pleasae login in.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+          <p>
+            If you wish to test // <br /> I have created so users you can use to
+            login with, //{" "}
+          </p>
+          <p>
+            basic user: <span>username: basicUser, password: 123</span>
+          </p>
+          <p>
+            editor user: <span>username: editor, password: 123</span>
+          </p>
+          <p>
+            admin user: <span>username: adminUser, password: 123</span>
+          </p>
+        </Col>
+      </Row>
+    </Container>
   );
 }
