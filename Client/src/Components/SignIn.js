@@ -67,10 +67,10 @@ export default function SignIn(props) {
         </Col>
         <Col className="w-50">
           <h1>Welcome Back</h1>
-          <p>To Start a quiz pleasae login in.</p>
+          <p>To Start a quiz pleasae login.</p>
           <p>
-            If you wish to test // <br /> I have created so users you can use to
-            login with,
+            If you wish to test <br /> I have created test users in the
+            database, that you can use to login with,
           </p>
           <p>
             basic Restricted: <span>username: basicUser, password: 123</span>
