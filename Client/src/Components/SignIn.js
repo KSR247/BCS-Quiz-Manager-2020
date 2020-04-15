@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../Services/AuthContent";
 import AuthService from "../Services/AuthService";
-import { Link } from "react-router-dom";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import Message from "./Message";
 
@@ -67,21 +66,21 @@ export default function SignIn(props) {
           </Form>
         </Col>
         <Col className="w-50">
-          {/* <h1>Welcome Back</h1>
+          <h1>Welcome Back</h1>
           <p>To Start a quiz pleasae login in.</p>
           <p>
             If you wish to test // <br /> I have created so users you can use to
-            login with, //{" "}
+            login with,
           </p>
           <p>
-            basic user: <span>username: basicUser, password: 123</span>
+            basic Restricted: <span>username: basicUser, password: 123</span>
           </p>
           <p>
-            editor user: <span>username: editor, password: 123</span>
+            editor Viwer: <span>username: Viwer, password: 123</span>
           </p>
           <p>
-            admin user: <span>username: adminUser, password: 123</span>
-          </p> */}
+            admin editor: <span>username: admin, password: 123</span>
+          </p>
         </Col>
       </Row>
     </Container>
